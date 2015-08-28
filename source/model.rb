@@ -1,10 +1,11 @@
+require 'csv'
 
 module DataParser
 
   def self.get_card_info(file)
     parsed_data = []
-    File.readlines(file).map do |row|
-      parsed_data << row.split("\n")
+    CSV.foreach(file) do |row|
+      parsed_data << row
     end
     parsed_data
   end
@@ -23,8 +24,15 @@ end
 
 class Deck
 
-  def initialize
+  def initialize(*deck)
+    @deck = deck
+  end
 
+  def make_deck(data)
+    data.each do |card|
+      @deck << Flashcard.new(:term => card[0], :definition => card [1])
+    end
+    @deck
   end
 end
 
@@ -37,6 +45,8 @@ class Game
 end
 
 
-my_data = DataParser.get_card_info("flashcards.txt")
-my_flashcard = Flashcard.new(:term => "Boolean", :definition => "True or False")
-p my_flashcard
+my_data = DataParser.get_card_info("flashcards.csv")
+p my_data
+
+my_deck = Deck.new
+p my_deck.make_deck(my_data)

@@ -1,4 +1,5 @@
 require 'csv'
+require_relative ('controller')
 
 module DataParser
 
@@ -23,14 +24,13 @@ end
 
 
 class Deck
-
-  def initialize(*deck)
-    @deck = deck
-  end
-
-  def make_deck(data)
-    data.each do |card|
-      @deck << Flashcard.new(:term => card[0], :definition => card [1])
+attr_reader :deck
+  def initialize(*data)
+    @deck = []
+    data.each do |array|
+      array.each do |card|
+        @deck << Flashcard.new(:term => card[0] , :definition => card[1])
+      end
     end
     @deck
   end
@@ -38,15 +38,19 @@ end
 
 
 class Game
-
+attr_reader :game
   def initialize
-
+    @game = Deck.new(DataParser.get_card_info("flashcards.csv"))
   end
+
+
+
+
 end
 
 
 my_data = DataParser.get_card_info("flashcards.csv")
-p my_data
+my_data
 
-my_deck = Deck.new
-p my_deck.make_deck(my_data)
+my_deck = Deck.new(my_data)
+p my_deck

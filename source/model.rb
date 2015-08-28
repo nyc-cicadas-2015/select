@@ -10,16 +10,16 @@ module DataParser
   end
 end
 
-my_data = DataParser.get_card_info("flashcards.txt")
-p my_data
 
 class Flashcard
 attr_reader :term, :definition
-  def initialize(term, definition)
-    @term = term
-    @definition = definition
+
+  def initialize(args = {})
+    @term = args[:term]
+    @definition = args[:definition]
   end
 end
+
 
 class Deck
 
@@ -28,9 +28,15 @@ class Deck
   end
 end
 
+
 class Game
 
   def initialize
 
   end
 end
+
+
+my_data = DataParser.get_card_info("flashcards.txt")
+my_flashcard = Flashcard.new(:term => "Boolean", :definition => "True or False")
+p my_flashcard

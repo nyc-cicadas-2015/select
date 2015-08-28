@@ -1,21 +1,17 @@
-require 'csv'
-
-#CSV Parser
-#Flashcard_maker
-#Flashcard(:term, :definition)
 
 module DataParser
 
   def self.get_card_info(file)
     parsed_data = []
-    CSV.foreach(file) do |row|
+    File.readlines(file).each do |row|
       parsed_data << row
     end
     parsed_data
   end
 end
 
-
+my_data = DataParser.get_card_info("flashcards.txt")
+p my_data
 
 class Flashcard
 attr_reader :term, :definition

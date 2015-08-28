@@ -20,11 +20,12 @@ describe Flashcard do
 end
 
 describe Deck do
-let(:my_deck){Deck.new}
-let(:my_flashcards){DataParser.get_card_info("flashcards.csv")}
-  describe "#make_deck" do
+let(:my_data){DataParser.get_card_info("flashcards.csv")}
+let(:my_deck){Deck.new(my_data)}
+
+  describe ".Deck" do
     it "should be an array of objects" do
-      expect(my_deck.make_deck(my_flashcards).size).to eq(4)
+      expect(my_deck.deck.size).to eq(4)
     end
   end
 end

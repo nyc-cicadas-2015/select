@@ -3,8 +3,8 @@ module DataParser
 
   def self.get_card_info(file)
     parsed_data = []
-    File.readlines(file).each do |row|
-      parsed_data << row
+    File.readlines(file).map do |row|
+      parsed_data << row.split("\n")
     end
     parsed_data
   end

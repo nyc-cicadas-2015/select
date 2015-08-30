@@ -3,7 +3,8 @@ require_relative ('controller')
 class Viewer
 
   def display_greeting
-    puts "Welcome to Flashcards!\n This game is case sensitive.\n Press enter to begin!"
+    make_it_nice
+    puts "\n Welcome to Flashcards!\n This game is case sensitive.\n Press control+c to exit.\n\n Press enter to begin!"
     gets_user_input
   end
 

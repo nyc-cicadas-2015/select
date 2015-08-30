@@ -27,7 +27,7 @@ end
 class Deck
 include DataParser
 
-attr_reader :deck, :completed_cards, :file
+attr_reader :deck, :file
 
   def initialize(file)
     @file = file

@@ -19,13 +19,36 @@ describe Flashcard do
   end
 end
 
+
 describe Deck do
-let(:my_data){DataParser.get_card_info("flashcards.csv")}
-let(:my_deck){Deck.new(my_data)}
+  let(:my_deck){Deck.new("flashcards.csv")}
 
   describe ".Deck" do
     it "should be an array of objects" do
-      expect(my_deck.deck.size).to eq(4)
+      expect(my_deck.make_deck.size).to eq(4)
+    end
+  end
+
+  describe "#shuffle" do
+    it "should shuffle the deck of cards" do
+      expect(my_deck.shuffle).not_to eq(my_deck)
+    end
+  end
+end
+
+
+describe ".Game" do
+  let(:my_game){Game.new("flashcards.csv")}
+
+ describe "#start" do
+    it "should create an array of card objects" do
+      expect(my_game.start).to be_an(Array)
+    end
+  end
+
+  describe "#finished?" do
+    it "should determine if the deck is empty" do
+      expect((my_game.is_finished?).to be_falsey
     end
   end
 end

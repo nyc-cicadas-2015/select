@@ -1,5 +1,6 @@
 require 'csv'
 require_relative ('controller')
+require 'pry'
 
 module DataParser
 
@@ -24,33 +25,60 @@ end
 
 
 class Deck
-attr_reader :deck
-  def initialize(*data)
+include DataParser
+
+attr_reader :deck, :file
+
+  def initialize(file)
+    @file = file
     @deck = []
-    data.each do |array|
-      array.each do |card|
-        @deck << Flashcard.new(:term => card[0] , :definition => card[1])
+    @completed_cards = []
+  end
+
+  def make_deck
+    flashcards = DataParser.get_card_info(file)
+    flashcards.each do |card|
+        deck << Flashcard.new(:term => card[0], :definition => card[1])
       end
-    end
-    @deck
+    deck
+  end
+
+  def shuffle
+    deck.shuffle
+  end
+
+  def draw_card
+    card = deck.shift
+    @completed_cards << card
+    card
   end
 end
 
 
 class Game
-attr_reader :game
-  def initialize
-    @game = Deck.new(DataParser.get_card_info("flashcards.csv"))
+attr_accessor :game_deck, :card
+
+  def initialize(file)
+    @game_deck = Deck.new(file)
+    @card = nil
   end
 
+  def start
+    game_deck.make_deck
+  end
 
+  def is_finished?
+    game_deck.deck.empty?
+  end
 
+  def get_card
+    self.card = game_deck.draw_card
+  end
 
+  def correct_guess(guess)
+    guess == card.term ? true : false
+  end
 end
 
 
-my_data = DataParser.get_card_info("flashcards.csv")
-my_data
 
-my_deck = Deck.new(my_data)
-p my_deck

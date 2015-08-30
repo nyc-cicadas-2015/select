@@ -48,7 +48,7 @@ describe ".Game" do
 
   describe "#finished?" do
     it "should determine if the deck is empty" do
-      expect((my_game.start).is_finished?).to be(false)
+      expect((my_game.is_finished?).to be_falsey
     end
   end
 end

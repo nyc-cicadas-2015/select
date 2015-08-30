@@ -27,7 +27,7 @@ end
 class Deck
 include DataParser
 
-attr_reader :deck
+attr_reader :deck, :completed_cards
 
   def initialize(file)
     @file = file
@@ -38,10 +38,8 @@ attr_reader :deck
   def make_deck
     flashcards = DataParser.get_card_info(@file)
     flashcards.each do |card|
-      # array.each do |card|
         deck << Flashcard.new(:term => card[0], :definition => card[1])
       end
-    # end
     deck
   end
 
@@ -58,8 +56,7 @@ end
 
 
 class Game
-  attr_reader :card
-attr_accessor :game_deck
+attr_accessor :game_deck, :card
 
   def initialize(file)
     @game_deck = Deck.new(file)
@@ -75,11 +72,13 @@ attr_accessor :game_deck
   end
 
   def get_card
-    card = game_deck.draw_card
+    self.card = game_deck.draw_card
+  end
+
+  def correct_guess(guess)
+    guess == card.term ? true : false
   end
 end
 
 
-my_game = Game.new("flashcards.csv")
-p my_game.start
-p my_game.get_card
+

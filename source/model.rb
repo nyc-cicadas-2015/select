@@ -44,7 +44,7 @@ attr_reader :deck, :file
   end
 
   def shuffle
-    deck.shuffle
+    deck.shuffle!
   end
 
   def draw_card
@@ -65,6 +65,7 @@ attr_accessor :game_deck, :card
 
   def start
     game_deck.make_deck
+    game_deck.shuffle
   end
 
   def is_finished?

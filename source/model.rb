@@ -1,5 +1,5 @@
 require 'csv'
-# require_relative ('controller')
+require_relative ('controller')
 require 'pry'
 
 module DataParser

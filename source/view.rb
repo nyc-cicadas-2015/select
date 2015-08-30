@@ -1,19 +1,21 @@
 require_relative ('controller')
 
-class GameViewer
+module Viewer
 
-def display_greeting
-  puts "Welcome to Flashcards!\n Here are the rules:\n 1.This game is case sensitive. "
-end
+  def self.display_greeting
+    puts "Welcome to Flashcards!\n This game is case sensitive.\n Press enter to begin!"
+    gets_user_input
+  end
 
-def gets_user_input
-  gets.chomp
-end
+  def self.gets_user_input
+    gets.chomp
+  end
 
-def display_flashcard
+  def self.display_flashcard
 
-end
+  end
 
-def display_result
+  def self.display_result
 
+  end
 end

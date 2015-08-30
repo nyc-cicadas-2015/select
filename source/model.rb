@@ -27,7 +27,7 @@ end
 class Deck
 include DataParser
 
-attr_reader :deck, :completed_cards
+attr_reader :deck, :completed_cards, :file
 
   def initialize(file)
     @file = file
@@ -36,7 +36,7 @@ attr_reader :deck, :completed_cards
   end
 
   def make_deck
-    flashcards = DataParser.get_card_info(@file)
+    flashcards = DataParser.get_card_info(file)
     flashcards.each do |card|
         deck << Flashcard.new(:term => card[0], :definition => card[1])
       end

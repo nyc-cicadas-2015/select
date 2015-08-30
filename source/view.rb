@@ -12,10 +12,15 @@ module Viewer
   end
 
   def self.display_flashcard
-
+    puts "#{card.definition}"
   end
 
   def self.display_result
-
+    if true
+      puts "Correct!"
+    else
+      puts "Incorrect! Try Again"
+      gets_user_input
+    end
   end
 end

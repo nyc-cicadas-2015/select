@@ -21,6 +21,9 @@ end
 
 
 describe Deck do
+  # You want to test one thing at a time.  This seems to be also testing that the
+  # Deck object can properly parse the CSV.  By using dependency injection, you
+  # can get rid of that issue and test each part separately.  Can you figure out how?
   let(:my_deck){Deck.new("flashcards.csv")}
 
   describe ".Deck" do

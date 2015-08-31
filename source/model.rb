@@ -1,5 +1,6 @@
 require 'csv'
-require_relative ('controller')
+require_relative ('controller') # Your model should _not_ be including your controller
+                                # If this is necessary, you're doing something wrong
 require 'pry'
 
 module DataParser
@@ -15,7 +16,8 @@ end
 
 
 class Flashcard
-attr_reader :term, :definition
+  # Indentation!!
+  attr_reader :term, :definition
 
   def initialize(args = {})
     @term = args[:term]
@@ -25,9 +27,10 @@ end
 
 
 class Deck
-include DataParser
+  # Indentation!!
+  include DataParser
 
-attr_reader :deck, :file
+  attr_reader :deck, :file
 
   def initialize(file)
     @file = file
@@ -35,6 +38,16 @@ attr_reader :deck, :file
     @completed_cards = []
   end
 
+  # The reason we use an external module for parsing is to avoid tightly
+  # coupled classes.  By instantiating your Flashcard instance within the Deck
+  # class, you are ensuring that the Deck object can only ever use this type
+  # of Flashcard.  Ruby methodology says that "as long as it responds to the
+  # proper methods, its ok...", meaning that it should not matter what kind of
+  # card object it is, as long as it adheres to a known interface.
+  #
+  # Better would be to have your DataParser module eat CSV's and spit out an
+  # array of Flashcard objects
+  #
   def make_deck
     flashcards = DataParser.get_card_info(file)
     flashcards.each do |card|
@@ -56,13 +69,16 @@ end
 
 
 class Game
-attr_accessor :game_deck, :card
+  # Indentation!!
+  attr_accessor :game_deck, :card
 
   def initialize(file)
     @game_deck = Deck.new(file)
     @card = nil
   end
 
+  # If your method changes some state internally, you may want to use a '!' at the end
+  # of the name
   def start
     game_deck.make_deck
     game_deck.shuffle
@@ -76,6 +92,7 @@ attr_accessor :game_deck, :card
     self.card = game_deck.draw_card
   end
 
+  # Make your interogative methods looks so with a '?' trailing the method name!
   def correct_guess(guess)
     guess == card.term ? true : false
   end
